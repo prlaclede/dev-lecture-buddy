@@ -1,0 +1,82 @@
+{% extends "layoutStudent.html" %}
+
+{% block content %}
+
+<body onload="setQuestions({{openQs}})">
+
+<script language="JavaScript" type="text/javascript">
+
+	var questions = []
+
+	function showJoinClass(){
+			document.getElementById('joinClass').style.visibility="visible";
+	}
+	function hideJoinClass(){
+			document.getElementById('joinClass').style.visibility="hidden";
+	}
+	
+	function showInstances(classInfo){
+		document.getElementById('name').innerHTML = "<div class='title'><h2>" + classInfo[1] + "</h2></div>";
+		document.getElementById('allQuestions').innerHTML = "";
+		var count = 1;
+		for(var i = 0; i < questions.length; i++){
+			if(questions[i][2] == classInfo[0]){
+				document.getElementById('allQuestions').innerHTML += "<p align='left' style='margin-left: 10px; display:inline'><a style='float:left; cursor:pointer; width:70%; overflow:hidden; text-overflow: ellipsis; white-space: nowrap;' onclick='viewInstance("+ questions[i][1] +")' title='" + questions[i][0] + "'>" + (count) + ". " + questions[i][0] + "</a><form style='align:right; display:inline' action='/viewInstance' method='POST'><input type='hidden' name='instanceID' value='" + questions[i][1] + "'><input class='buttonChoice' type='submit' style='float: right; margin-right: 10px; margin-top: 7px' value='Respond'></form></p>";
+				count = count + 1;
+			}
+		}
+	}
+	
+	function setQuestions(openQs){
+		questions = openQs;
+	}
+	
+	function viewInstance(instanceid){
+		document.getElementById('link').innerHTML = "<form id='submitThis' style='align:right; display:inline' action='/viewInstance' method='POST'><input type='hidden' name='instanceID' value='" + instanceid + "'></form>"
+		document.getElementById('submitThis').submit();
+	}
+	
+</script>
+
+<div id="wrapper">
+	<div id="featured-wrapper">
+		<div class="title">
+			<h2 style="float:centered">Home</h2>
+			<span class="byline"><font color="red">{{error}}</font></span>
+			<input style="float:right" class="classButton" type="submit" onclick="showJoinClass()" name="joinClass" value="Join Class"/>
+		</div>
+		<div style="height:150px; width:92%; overflow-x:scroll ; overflow-y: hidden; margin: 0 auto; white-space: nowrap;">
+		{% for class in activeClasses %}
+			<input  class="button-sort" type="submit" onclick="showInstances({{class}})" name='{{class[1]}}' value='{{class[1]}}'/>
+		{% endfor %}
+		</div>
+		<div id="name">
+			<!-- Fill With JavaScript -->
+		</div>
+		<div id="allQuestions"> 
+		<!-- Fill With JavaScript -->
+		</div>
+	</div>
+	<div id="joinClass"> 
+		<div class="title">
+			<h2 style="display: inline; margin-left:10%">Join Class</h2>
+			<input class="closeButton" type="submit"  name="exit" value="X" onclick="hideJoinClass()"/></br>
+			<span class="byline">Join A Class</span>
+			<form action="/joinClass" method="POST">
+				<div id=classes class="form_settings">
+					<p style="margin:20px"><span style="width:100px">Class Name:</span><select style="width:200px" name="availableClasses" size=1 required>
+						{% for class in classes %}
+							<option value='{{class}}'>{{class}}</option>
+						{% endfor %}
+					</select></p>
+				</div>
+				<input class="button" type="submit"  name="joinClass" value="Join Class"/>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="link" style='visibility:hidden'>
+	
+</div>
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends "layoutAdmin.html" %}
+
+{% block content %}
+
+<script language="JavaScript" type="text/javascript">
+
+var options = [];
+var correctAnswer = "";
+
+	function choices(select){
+		var selectedOption = select.options[select.selectedIndex];
+        if (selectedOption.value == "multipleChoice"){
+        	document.getElementById('check2').innerHTML = "<input id='check' type='text' name='check' value='' style='visibility: hidden' required>";
+        	document.getElementById('addchoices').style.visibility="visible";
+        	document.getElementById('choices').style.visibility="visible";
+        	document.getElementById('imageField').innerHTML = "<span>Upload Image:</span><input type='file' name='image' accept='image/*'>";
+        }
+        else if (selectedOption.value == "shortAnswer"){
+        	document.getElementById('check2').innerHTML = "";
+        	document.getElementById('addchoices').style.visibility="hidden";
+        	document.getElementById('choices').style.visibility="hidden";
+        	document.getElementById('imageField').innerHTML = "<span>Upload Image:</span><input type='file' name='image' accept='image/*'>";
+        }
+        else if (selectedOption.value == "map"){
+        	document.getElementById('check2').innerHTML = "";
+			document.getElementById('addchoices').style.visibility="hidden";
+        	document.getElementById('choices').style.visibility="hidden";
+        	document.getElementById('imageField').innerHTML = "<span>Upload Image:</span><input type='file' name='image' accept='image/*' required>";
+        }
+	}
+	
+	function choicesHide(){
+		document.getElementById('addchoices').style.visibility="hidden";
+		document.getElementById('choices').style.visibility="hidden";
+	}
+	
+	function addchoice(){
+		var temp = document.getElementById('ChoiceToAdd').value;
+		if(temp != ""){
+			options.push(temp);
+			writeChoices();
+		}
+	}
+	
+	function setAnswer(temp){
+		correctAnswer = temp.value;
+		document.getElementById('correctAnswer').value = correctAnswer;
+		document.getElementById('answerBox').value = correctAnswer;
+	}
+	
+	function writeChoices(){
+		document.getElementById('allOptions').innerHTML = "</br>";
+		document.getElementById('createForm').innerHTML = "</br><input type='hidden' id='correctAnswer' name='correctAnswer' value='" + correctAnswer +"'>";
+		if(window.options.length > 1){
+			document.getElementById('check').value = "True";
+		}
+		else{
+			document.getElementById('check').value = "";
+		}
+		
+		for (var i = 0; i < window.options.length; i++){
+			if(correctAnswer == ""){
+				correctAnswer = window.options[i];
+				document.getElementById('correctAnswer').value = correctAnswer;
+				document.getElementById('answerBox').value = correctAnswer;
+			}
+			if(window.options[i] == correctAnswer){
+				document.getElementById('allOptions').innerHTML += ("<p><input type='radio' onclick=setAnswer(this) name='option' style='float:left;' height:15px; width:15px' checked='checked' value='" + window.options[i] + "'><a style='margin-left: 4px; float: left; width:50%; overflow:hidden; text-overflow: ellipsis; white-space: nowrap;'>" + options[i] + "</a><input class='buttonChoice' type='submit' style='float: right' onclick=deleteChoice(" + i + ") value='Delete'></div></br>");
+			}
+			else{
+				document.getElementById('allOptions').innerHTML += ("<p><input type='radio' onclick=setAnswer(this) name='option' style='float:left;' height:15px; width:15px' value='" + window.options[i] + "'><a style='margin-left: 4px; float: left; width: 50%; overflow:hidden; text-overflow: ellipsis; white-space: nowrap;'>" + options[i] + "</a><input class='buttonChoice' type='submit' style='float: right' onclick=deleteChoice(" + i + ") value='Delete'></div></br>");
+			}
+			document.getElementById('createForm').innerHTML += ("<input type='hidden' name='hiddenChoice' value='" + window.options[i] + "'>");
+		} 
+	}
+	
+	function deleteChoice(index){
+		if(window.options[index] == correctAnswer){
+			correctAnswer = "";
+			document.getElementById('correctAnswer').value = correctAnswer;
+			document.getElementById('answerBox').value = correctAnswer;
+		}
+		window.options.splice(index,1);
+		writeChoices();
+	}
+	
+</script>
+
+<div id="wrapper">
+	<div id="featured-wrapper">
+		<div class="extra2 container">
+			<div class="ebox1">
+				<div class="title">
+					<h2>Create Question</h2>
+					<span class="byline">Enter The Following Information</span></br>
+					<span class="byline"><font color="red">{{error}}</font></span>
+				</div>
+				<form action="/createQuestion" method="POST" enctype="multipart/form-data">
+					<div class="form_settings">
+						<p><span>Question Type:</span>
+            			<select name="questionType" size=1 onchange=choices(this)>
+              				<option value="shortAnswer">Short Answer</option>
+				            <option value="multipleChoice">Multiple Choice</option>
+				            <option value="map">Map</option>
+            			</select></p>
+						<p id='imageField'><span>Upload Image:</span><input type="file" name="image" accept="image/*"></p>
+						<p><span>Question Text:</span><textarea style="resize:none" rows="8" cols="50" name="questionText" required></textarea></p>
+						<p><span>Answer:</span><textarea id='answerBox' style="resize:none" rows="8" cols="50" name="answer"></textarea></p>
+						<div id="createForm" style='visibility: hidden'>
+							
+						</div>
+					</div>
+					<input class="button" type="submit" name="createQuestion" value="Create Question"/></br>
+					<div id="check2" style="visibility: hidden">
+						
+					</div>
+				</form>
+			</div>		
+		</div>	
+	</div>
+	<div id="addchoices"> 
+		<div class="title">
+			<h2>Add Choice</h2>
+			<span class="byline">Add A Choice For The Question</span>
+			<div class="form_settings">
+				<p><h3>Input Choice</h3><textarea id="ChoiceToAdd" style="resize:none; width:80%" rows="4" cols="50" name="choice" value=""></textarea></p>
+			</div>
+			<input class="button" type="submit" onclick="addchoice()" name="addChoice" value="Add Choice"/>
+		</div>
+	</div>
+	
+	<div id="choices"> 
+		<div class="title">
+			<h2>Choices</h2>
+			<span class="byline">Choices For Question</span>
+			<div id="allOptions" style='height:300px; overflow:auto; width:100%'>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+{% endblock %}

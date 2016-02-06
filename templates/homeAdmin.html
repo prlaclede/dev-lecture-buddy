@@ -1,0 +1,95 @@
+{% extends "layoutAdmin.html" %}
+
+{% block content %}
+
+<body onload="setQuestions({{openQs}})">
+
+<script language="JavaScript" type="text/javascript">
+
+	var questions = []
+	
+	function showCreateClass(){
+			document.getElementById('createClass').style.visibility="visible";
+	}
+	function hideCreateClass(){
+			document.getElementById('createClass').style.visibility="hidden";
+	}
+	
+	function deleteAll(){
+		if(confirm("Are you sure you want to delete all the data in the database?")){
+			if(confirm("This should only be done at the end of the semester to free space. Are you sure?")){
+				if(confirm("Everything will be deleted but admin accounts and their questions, confirm one last time.")){
+					document.getElementById('deleteAll').innerHTML = "<form id='delete' style='visibility: hidden' action='/deleteAll' method='POST'></form>";
+					document.getElementById('delete').submit();
+				}
+			}
+		}
+	}
+	
+	function showInstances(classInfo){
+		document.getElementById('name').innerHTML = "<div class='title'><h2>" + classInfo[1] + "</h2></div>";
+		document.getElementById('allQuestions').innerHTML = "";
+		var count = 1;
+		for(var i = 0; i < questions.length; i++){
+			if(questions[i][2] == classInfo[0]){
+				document.getElementById('allQuestions').innerHTML += "<p align='left' style='margin-left: 10px; display:inline'><a style='float:left; cursor:pointer; width:70%; overflow:hidden; text-overflow: ellipsis; white-space: nowrap;' onclick='viewInstance("+ questions[i][1] +")' title='" + questions[i][0] + "'>" + (count) + ". " + questions[i][0] + "</a><form style='align:right; display:inline' action='/closeInstance' method='POST'><input type='hidden' name='instanceID' value='" + questions[i][1] + "'><input class='buttonChoice' type='submit' style='float: right; margin-right: 10px; margin-top: 7px' value='Close'></form><form style='align:right; display:inline' action='/deleteInstance' method='POST'><input type='hidden' name='instanceID' value='" + questions[i][1] + "'><input class='buttonChoice' type='submit' style='float: right; margin-right: 10px; margin-top: 7px' value='Delete'></form></p>";
+				count = count + 1;
+			}
+		}
+	}
+	
+	function setQuestions(openQs){
+		questions = openQs;
+	}
+	
+	function viewInstance(instanceid){
+		document.getElementById('link').innerHTML = "<form id='submitThis' style='align:right; display:inline' action='/viewInstance' method='POST'><input type='hidden' name='instanceID' value='" + instanceid + "'></form>"
+		document.getElementById('submitThis').submit();
+	}
+	
+</script>
+
+<div id="wrapper">
+	<div id="featured-wrapper">
+		<div class="title">
+			<h2 style="float:centered">Home</h2>
+			<span class="byline"><font color="red">{{error}}</font></span>
+			<input style="float:left; margin-right: 0px; margin-left: 10px;" class="classButton" type="submit" onclick="deleteAll()" name="deleteAll" value="Clear Database"/>
+			<input style="float:right" class="classButton" type="submit" onclick="showCreateClass()" name="createClass" value="Create Class"/>
+		</div>
+		<div style="height:150px; width:92%; overflow-x:scroll ; overflow-y: hidden; margin: 0 auto; white-space: nowrap;">
+		{% for class in classes %}
+			<input  class="button-sort" type="submit" onclick="showInstances({{class}})" name='{{class[1]}}' value='{{class[1]}}'/>
+		{% endfor %}
+		</div>
+		<div id="name">
+			<!-- Fill With JavaScript -->
+		</div>
+		<div id="allQuestions"> 
+		<!-- Fill With JavaScript -->
+		</div>
+	</div>
+</div>
+
+<div id="createClass"> 
+	<center>
+	<div class="title">
+		<h2 style="display: inline; margin-left:60px">Create Class</h2>
+		<input class="closeButton" type="submit"  name="exit" value="X" onclick="hideCreateClass()"/></br>
+		<span class="byline">Create A Class</span>
+		<form action="/createClass" method="POST">
+			<div class="form_settings">
+				<p style="margin:20px"><span style="width:100px">Class Name:</span><input style="width:200px" type="text" name="className" value="" maxlength="50" required/></p>
+				<p style="margin:20px"><span style="width:100px">Class Section:</span><input style="width:200px" type="number" name="section" value="" max="50" min="1" required/></p>
+			</div>
+			<input class="button" type="submit"  name="CreateClass" value="Create Class"/>
+		</form>
+	</div>
+	</center>
+</div>
+
+<div id="link" style='visibility:hidden'>
+	
+</div>
+<div id="deleteAll" style='visibility:hidden'></div>
+{% endblock %}

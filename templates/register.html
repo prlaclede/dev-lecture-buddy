@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script language="JavaScript" type="text/javascript">
+	function check(admin1){
+		var temp = document.getElementById('admin').value;
+		if(temp != admin1){
+			if(confirm("The Admin Code is missing or incorect. Would you like to register as a student?")){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+	}
+</script>
+
+<div id="wrapper">
+	<div id="featured-wrapper">
+		<div class="extra2 container">
+			<div class="ebox1">
+				<div class="title">
+					<h2>Register</h2>
+					<span class="byline">Enter The Following Information</span></br>
+					<span class="byline"><font color="red">{{error}}</font></span>
+				</div>
+				<form action="/register" id="register" method="POST" onsubmit="return check({{admin}})">
+					<div class="form_settings">
+						<p><span>First Name:</span><input class="contact" type="text" name="firstName" value="" maxlength="50" required/></p>
+						<p><span>Last Name:</span><input class="contact" type="text" name="lastName" value=""  maxlength="50" required/></p>
+						<p><span>Username:</span><input class="contact" type="text" name="username" value="" maxlength="50"required/></p>
+						<p><span>Password:</span><input class="contact" type="password" name="password1" value="" maxlength="50"required/></p>
+						<p><span>Re-Enter Password:</span><input class="contact" type="password" name="password2" value="" maxlength="50"required/></p>
+						<p><span>Admin Code:</span><input class="contact" id="admin" type="text" name="adminCode" value="" maxlength="50"/></p>
+					</div>
+					<input class="button" id="submitButton" type="submit" name="register" value="Register"/>
+				</form>
+			</div>		
+		</div>	
+	</div>
+</div>
+
+{% endblock %}
