@@ -13,18 +13,21 @@ var correctAnswer = "";
         	document.getElementById('check2').innerHTML = "<input id='check' type='text' name='check' value='' style='visibility: hidden' required>";
         	document.getElementById('addchoices').style.visibility="visible";
         	document.getElementById('choices').style.visibility="visible";
+        	document.getElementById('answerField').style.visibility='hidden';
         	document.getElementById('imageField').innerHTML = "<span>Upload Image:</span><input type='file' name='image' accept='image/*'>";
         }
         else if (selectedOption.value == "shortAnswer"){
         	document.getElementById('check2').innerHTML = "";
         	document.getElementById('addchoices').style.visibility="hidden";
         	document.getElementById('choices').style.visibility="hidden";
+        	document.getElementById('answerField').style.visibility='visible';
         	document.getElementById('imageField').innerHTML = "<span>Upload Image:</span><input type='file' name='image' accept='image/*'>";
         }
         else if (selectedOption.value == "map"){
         	document.getElementById('check2').innerHTML = "";
 			document.getElementById('addchoices').style.visibility="hidden";
         	document.getElementById('choices').style.visibility="hidden";
+        	document.getElementById('answerField').style.visibility='visible';
         	document.getElementById('imageField').innerHTML = "<span>Upload Image:</span><input type='file' name='image' accept='image/*' required>";
         }
 	}
@@ -105,7 +108,7 @@ var correctAnswer = "";
             			</select></p>
 						<p id='imageField'><span>Upload Image:</span><input type="file" name="image" accept="image/*"></p>
 						<p><span>Question Text:</span><textarea style="resize:none" rows="8" cols="50" name="questionText" required></textarea></p>
-						<p><span>Answer:</span><textarea id='answerBox' style="resize:none" rows="8" cols="50" name="answer"></textarea></p>
+						<p id='answerField'><span>Answer:</span><textarea id='answerBox' style="resize:none" rows="8" cols="50" name="answer"></textarea></p>
 						<div id="createForm" style='visibility: hidden'>
 							
 						</div>
