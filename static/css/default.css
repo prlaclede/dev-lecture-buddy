@@ -395,7 +395,7 @@ ul.contact li a.icon-rss:before
 	{
 		overflow: hidden;
 		padding: 0em 0em 0em 0em;
-		background: #04B45F url(images/overlay.png) repeat;
+		background: #04B45F repeat;
 		width: 100%;
 	}
 

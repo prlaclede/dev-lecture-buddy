@@ -293,6 +293,7 @@ def createQuestion():
             questionType = request.form['questionType']
         if 'image' in request.files:
             image = request.files['image']
+            print("there's an image")
         if 'questionText' in request.form:
             questionText = request.form['questionText']
         if 'answer' in request.form:
