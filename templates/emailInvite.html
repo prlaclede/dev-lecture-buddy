@@ -5,12 +5,19 @@
 	<div id="featured-wrapper">
 		<div class="extra2 container">
 			<div class="ebox1">
+			    <div class="title">
+			        <h2>Email Invite</h2>    
+			    </div>
                 <div id="emailInviteWrapper">
                     <div id="emailEnter">
-                        <textarea rows="20" cols="50" placeholder="Enter comma seperated email list here"></textarea>
+                        <textarea id="emailList" rows="20" cols="50" placeholder="Enter comma seperated email list here"></textarea>
+                    </div>
+                    <div id="inputOptions">
+                        <input id="parseEmails" class="button-sm" type="button" name="parseEmails" value="Parse >>>" />
+                        <input id="clearEmails" class="button-sm" type="button" name="clearEmails" value="Clear" />
                     </div>
                     <div id="parsedEmail">
-                        <textarea readonly rows="20" cols="50" placeholder="parsed emails will appear here..."></textarea>
+                        <textarea readonly id="parsedEmails" rows="20" cols="50" placeholder="parsed emails will appear here..."></textarea>
                     </div>
                 </div>
 			</div>		
