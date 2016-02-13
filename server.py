@@ -27,6 +27,10 @@ def mainIndex():
 def welcome():
     return render_template('welcome.html')
     
+@app.route('/emailInvite')
+def emailInvite():
+    return render_template('emailInvite.html')
+    
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     conn = connectToDB()
@@ -293,7 +297,6 @@ def createQuestion():
             questionType = request.form['questionType']
         if 'image' in request.files:
             image = request.files['image']
-            print("there's an image")
         if 'questionText' in request.form:
             questionText = request.form['questionText']
         if 'answer' in request.form:
