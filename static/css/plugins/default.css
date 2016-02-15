@@ -262,23 +262,6 @@ ul.contact li a.icon-rss:before {
     vertical-align: middle;
 }
 
-.button-sm {
-    display: inline-block;
-    background: #04B45F;
-    -moz-transition: opacity 0.25s ease-in-out;
-    -webkit-transition: opacity 0.25s ease-in-out;
-    -o-transition: opacity 0.25s ease-in-out;
-    -ms-transition: opacity 0.25s ease-in-out;
-    transition: opacity 0.25s ease-in-out;
-    letter-spacing: 0.20em;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: #FFF;
-    text-align: center;
-    vertical-align: middle; 
-}
-
 .button:hover {} .button:active {} .button-big {
     font-size: 2.5em;
     height: 1.5em;
@@ -1122,15 +1105,3 @@ table {
     color: #000000;
 }
 
-#emailInviteWrapper {
-    display: inline-flex;
-}
-
-#emailEnter {
-}
-
-#parsedEmail {
-}
-
-#inputOptions {
-}
