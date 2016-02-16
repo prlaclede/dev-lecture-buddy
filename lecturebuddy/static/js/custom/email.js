@@ -1,10 +1,9 @@
 $(function (email, $, undefined) {
     
-    $("#parsedEmails").height($('#emailList').height());
-    
     $('body')
     
         .on('click', '#parseEmails', function() {
+            $('#parsedEmails > tbody').html('');
             var emailList = $('#emailList').val();
             var emailArray = email.parseEmails(emailList);
             if (emailArray != "") {
@@ -12,13 +11,17 @@ $(function (email, $, undefined) {
                 $.each(emailArray, function(i) {
                     if (!email.isValidEmailAddress(emailArray[i])) {
                         $('#parsedEmails > tbody').append("<tr><td>" + emailArray[i] + "</td>" + 
-                            "<td>" + lb.generateSVG("error", "invalidEmail") + "</td></tr>")
+                            "<td>" + lb.generateSVG("error", "emailStatusIcon invalidEmail") + "</td></tr>")
                     } else {
-                        $('#parsedEmails > tbody').append("<tr><td>" + emailArray[i] + "</td>" +
-                            "<td>" + lb.generateSVG("check", "validEmail") + "</td></tr>");
+                        $('#parsedEmails > tbody').append("<tr><td class='emailEntry'>" + emailArray[i] + "</td>" +
+                            "<td>" + lb.generateSVG("check", "emailStatusIcon validEmail") + "</td></tr>");
                     }
                 });
-                $('#emailList').val(''); 
+                if ($('#parsedEmails > tbody').find('.invalidEmail').length) {
+                    $('#sendEmails').prop('disabled', true);   
+                } else {
+                    $('#sendEmails').prop('disabled', false);   
+                }
             }
         })
         
@@ -28,7 +31,26 @@ $(function (email, $, undefined) {
         })
         
         .on('click', '#sendEmails', function() {
-            console.log('send emails');
+            var emailArray = [];
+            var emailsForm = new FormData();
+            var emailTable = $('#parsedEmails');
+            emailTable.find('.emailEntry').each(function() {
+                emailArray.push($(this).html());
+            })
+            emailsForm.append('emails', emailArray);
+            $.ajax({
+                url: '/sendEmails',
+                data: emailsForm,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(error) {
+                    return("error" + JSON.stringify(error));
+                }
+            })
         })
     
     email.parseEmails = function(emailList) {

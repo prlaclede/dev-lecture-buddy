@@ -19,6 +19,14 @@
     /*border: 1px solid black;*/
 }
 
+#parsedEmails tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+#parsedEmails > thead > tr > td {
+    font-weight: bold;
+}
+
 .button-sm {
     display: inline-block;
     background: #04B45F;
@@ -34,4 +42,8 @@
     color: #FFF;
     text-align: center;
     vertical-align: middle; 
+}
+
+.button-sm:disabled {
+    background: slategray;
 }
