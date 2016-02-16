@@ -21,17 +21,17 @@ app.config.from_inifile_sections('protected/config.ini', ['flask'])
 app.register_blueprint(adminAPI)
 app.register_blueprint(accountAPI)
 app.register_blueprint(studentAPI)
-
+app.register_blueprint(mailAPI)
 
 assets = Environment(app)
 
 pluginJS = Bundle('js/plugins/Chart.js/Chart.js', 'js/plugins/heatmap.js/heatmap.js', 
                     'js/plugins/jquery/jquery-1.12.0.min.js')
-customJS = Bundle('js/custom/email.js')
+customJS = Bundle('js/custom/lb.js', 'js/custom/email.js')
 
 pluginCSS = Bundle('css/plugins/default.css', 'css/plugins/fonts.css')
 
-customCSS = Bundle('css/custom/lecturebuddy.css')
+customCSS = Bundle('css/custom/lecturebuddy.css', 'css/custom/icons.css')
 
 allJS = Bundle(pluginJS, customJS)
 

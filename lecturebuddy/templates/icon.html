@@ -1,0 +1,9 @@
+{% macro icon(classes, image, hoverText) %}
+<div class="im {% for class in classes %} {{ class }} {% endfor %}" {% if hoverText %} data-toggle="tooltip" title="{{hoverText}}" data-placement="right"{% endif %}> 
+    <svg viewBox='0 0 25 25'> 
+        <g> 
+            <use xlink:href="#{{ image }}"></use> 
+        </g> 
+    </svg> 
+</div>
+{% endmacro %}

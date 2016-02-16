@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "layoutAdmin.html" %}
 
 {% block content %}
 <div id="wrapper">
@@ -6,18 +6,34 @@
 		<div class="extra2 container">
 			<div class="ebox1">
 			    <div class="title">
-			        <h2>Email Invite</h2>    
+			        <h2>Email Invite</h2>  
+			        <div id="inputOptions">
+                        <input id="parseEmails" class="button-sm" type="button" name="parseEmails" value="Parse" />
+                        <input id="clearEmails" class="button-sm" type="button" name="clearEmails" value="Clear" />
+                        <input id="sendEmails" class="button-sm" type="button" name="sendEmails" value="Send Emails" />
+                    </div>
 			    </div>
                 <div id="emailInviteWrapper">
                     <div id="emailEnter">
                         <textarea id="emailList" rows="20" cols="50" placeholder="Enter comma seperated email list here"></textarea>
                     </div>
-                    <div id="inputOptions">
-                        <input id="parseEmails" class="button-sm" type="button" name="parseEmails" value="Parse >>>" />
-                        <input id="clearEmails" class="button-sm" type="button" name="clearEmails" value="Clear" />
+                    <div id="emailStatusTable">
+                       <table id="parsedEmails">
+                            <thead>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>Status</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    
+                                </tr>
+                            </tbody>
+                        </table> 
                     </div>
-                    <div id="parsedEmail">
-                        <textarea readonly id="parsedEmails" rows="20" cols="50" placeholder="parsed emails will appear here..."></textarea>
+                    
+                        <!--<textarea readonly id="parsedEmails" rows="20" cols="50" placeholder="parsed emails will appear here..."></textarea>-->
                     </div>
                 </div>
 			</div>		

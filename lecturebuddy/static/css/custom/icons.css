@@ -1,0 +1,12 @@
+.emailStatusIcon {
+    height: 20px;
+    width: 20px;
+}
+
+.validEmail {
+    fill: green;
+}
+
+.invalidEmail {
+    fill: red;
+}

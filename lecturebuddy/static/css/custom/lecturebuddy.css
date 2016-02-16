@@ -1,14 +1,22 @@
 #emailInviteWrapper {
-    display: inline-flex;
 }
 
 #emailEnter {
+    float: left;
 }
 
-#parsedEmail {
+#emailStatusTable {
+    float: right;
 }
 
 #inputOptions {
+}
+
+#parsedEmails {
+    /*width: 100%;*/
+    display: none;
+    border: 1px solid #ccc;
+    /*border: 1px solid black;*/
 }
 
 .button-sm {
