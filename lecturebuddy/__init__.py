@@ -28,7 +28,7 @@ pluginJS = Bundle('js/plugins/Chart.js/Chart.js', 'js/plugins/heatmap.js/heatmap
                     'js/plugins/jquery/jquery-1.12.0.min.js')
 customJS = Bundle('js/custom/lb.js', 'js/custom/email.js')
 
-pluginCSS = Bundle('css/plugins/default.css', 'css/plugins/fonts.css')
+pluginCSS = Bundle('css/plugins/pure/pure.css', 'css/plugins/default.css', 'css/plugins/fonts.css')
 
 customCSS = Bundle('css/custom/lecturebuddy.css', 'css/custom/icons.css')
 
