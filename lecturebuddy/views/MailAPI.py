@@ -13,20 +13,22 @@ logger = logging.getLogger(__name__)
 @mailAPI.route('/sendEmails', methods=['POST'])
 def sendEmails():
     emails = request.values.get('emails')
+    emails = emails.split(',')
     app = current_app._get_current_object()
     mail = Mail(app)
     emailer = Email()
     inviteURL = url_for('accountAPI.register', _external=True)
     invitePage = render_template('emailInviteTemplate.html', inviteURL=inviteURL)
     for email in emails: 
+        print(email)
         msg = emailer.get_email(email, 'invite', invitePage)
         try:
             mail.send(msg)
             logger.info('email for ' + email + ' has been sent')
-            return jsonify(message='success')
         except SMTPException as error:
             logger.error('Invite email for ' + email + ' failed to send')
             return jsonify(message='error')
+    return jsonify(message='success')
         
     
     

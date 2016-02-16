@@ -10,7 +10,6 @@ class Email():
   
   def get_email(self, to, subject, template):
     mailer = Mail()
-    print subject
     if (subject == 'invite'): 
       msg = Message(
         'Please setup your account with the Lecture Buddy Application!',

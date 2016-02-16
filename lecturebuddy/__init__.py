@@ -12,11 +12,10 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24).encode('hex')
 
 INIConfig(app)
 
-app.config.from_inifile_sections('protected/config.ini', ['flask'])
+app.config.from_inifile_sections('lecturebuddy/protected/config.ini', ['flask'])
 
 app.register_blueprint(adminAPI)
 app.register_blueprint(accountAPI)
