@@ -9,6 +9,7 @@ $(function (email, $, undefined) {
             if (emailArray != "") {
                $('#parsedEmails').show();
                 $.each(emailArray, function(i) {
+                    console.log(emailArray[i]);
                     if (!email.isValidEmailAddress(emailArray[i])) {
                         $('#parsedEmails > tbody').append("<tr><td>" + emailArray[i] + "</td>" + 
                             "<td>" + lb.generateSVG("error", "emailStatusIcon invalidEmail") + "</td></tr>")
@@ -54,7 +55,7 @@ $(function (email, $, undefined) {
         })
     
     email.parseEmails = function(emailList) {
-        return emailList.split(',');
+        return $.map(emailList.split(','), $.trim);
     }
     
     email.isValidEmailAddress = function (emailAddress) {
