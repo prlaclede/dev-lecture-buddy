@@ -26,11 +26,13 @@ assets = Environment(app)
 
 pluginJS = Bundle('js/plugins/Chart.js/Chart.js', 'js/plugins/heatmap.js/heatmap.js', 
                     'js/plugins/jquery/jquery-1.12.0.min.js')
-customJS = Bundle('js/custom/lb.js', 'js/custom/email.js')
 
-pluginCSS = Bundle('css/plugins/pure/pure.css', 'css/plugins/default.css', 'css/plugins/fonts.css')
+customJS = Bundle('js/custom/*.js')
 
-customCSS = Bundle('css/custom/lecturebuddy.css', 'css/custom/icons.css')
+#pluginCSS = Bundle('css/plugins/pure/pure.css', 'css/plugins/default.css', 'css/plugins/fonts.css', 'css/plugins/hover/hover.css')
+pluginCSS = Bundle('css/plugins/*.css')
+
+customCSS = Bundle('css/custom/*.css')
 
 allJS = Bundle(pluginJS, customJS)
 
@@ -38,4 +40,3 @@ allCSS = Bundle(pluginCSS, customCSS)
 
 assets.register('allJS', allJS)
 assets.register('allCSS', allCSS)
-

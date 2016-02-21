@@ -20,7 +20,6 @@ def sendEmails():
     inviteURL = url_for('accountAPI.register', _external=True)
     invitePage = render_template('emailInviteTemplate.html', inviteURL=inviteURL)
     for email in emails: 
-        print(email)
         msg = emailer.get_email(email, 'invite', invitePage)
         try:
             mail.send(msg)

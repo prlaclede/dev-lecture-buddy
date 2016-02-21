@@ -8,8 +8,6 @@
 	var type = ""
 
 	function shortAnswer(shortAnswerQuestions){
-		document.getElementById('name').innerHTML = "<div class='title'><h2>Short Answer</h2></div>";
-		document.getElementById('allQuestions').innerHTML = "";
 		type = "shortAnswer";
 		for(var i = 0; i < shortAnswerQuestions.length; i++){
 			document.getElementById('allQuestions').innerHTML += "<p align='left' style='margin-left: 10px; display:inline'><a class='questionLink'  style='float:left; cursor:pointer; width:70%; overflow:hidden; text-overflow: ellipsis; white-space: nowrap;' onclick='viewQuestion("+ shortAnswerQuestions[i][0] +")' title='" + shortAnswerQuestions[i][1] + "'>" + (i + 1) + ". " + shortAnswerQuestions[i][1] + "</a><input class='buttonChoice' type='submit' style='float: right; margin-right: 10px; margin-top: 7px' onclick='showChooseClass("+shortAnswerQuestions[i][0]+")' value='Launch'><form style='align:right; display:inline' action='/deleteQuestion' method='POST'><input type='hidden' name='questionType' value='shortAnswer'><input type='hidden' name='questionID' value='" + shortAnswerQuestions[i][0] + "'><input class='buttonChoice' type='submit' style='float: right; margin-right: 10px; margin-top: 7px' value='Delete'></form><form style='align:right; display:inline' action='viewGlobalStatistics' method='POST'><input type='hidden' name='questionType' value='shortAnswer'><input type='hidden' name='questionID' value='" + shortAnswerQuestions[i][0] + "'><input class='buttonChoice' type='submit' style='float: right; margin-right: 10px; margin-top: 7px' value='Statistics'></form></p>";
@@ -17,8 +15,6 @@
 	}
 	
 	function multipleChoice(multipleChoiceQuestions){
-		document.getElementById('name').innerHTML = "<div class='title'><h2>Multiple Choice</h2></div>";
-		document.getElementById('allQuestions').innerHTML = "";
 		type = "multipleChoice";
 		for(var i = 0; i < multipleChoiceQuestions.length; i++){
 			document.getElementById('allQuestions').innerHTML += "<p align='left' style='margin-left: 10px; display:inline'><a class='questionLink'  style='float:left; cursor:pointer; width:70%; overflow:hidden; text-overflow: ellipsis; white-space: nowrap;' onclick='viewQuestion("+ multipleChoiceQuestions[i][0] +")' title='" + multipleChoiceQuestions[i][1] + "'>" + (i + 1) + ". " + multipleChoiceQuestions[i][1] + "</a><input class='buttonChoice' type='submit' style='float: right; margin-right: 10px; margin-top: 7px' onclick='showChooseClass("+multipleChoiceQuestions[i][0]+")' value='Launch'><form style='align:right; display:inline' action='/deleteQuestion' method='POST'><input type='hidden' name='questionType' value='multipleChoice'><input type='hidden' name='questionID' value='" + multipleChoiceQuestions[i][0] + "'><input class='buttonChoice' type='submit' style='float: right; margin-right: 10px; margin-top: 7px' value='Delete'></form><form style='align:right; display:inline' action='viewGlobalStatistics' method='POST'><input type='hidden' name='questionType' value='multipleChoice'><input type='hidden' name='questionID' value='" + multipleChoiceQuestions[i][0] + "'><input class='buttonChoice' type='submit' style='float: right; margin-right: 10px; margin-top: 7px' value='Statistics'></form></p>";
@@ -26,8 +22,6 @@
 	}
 	
 	function map(mapSelectionQuestions){
-		document.getElementById('name').innerHTML = "<div class='title'><h2>Map</h2></div>";
-		document.getElementById('allQuestions').innerHTML = "";
 		type = "map";
 		for(var i = 0; i < mapSelectionQuestions.length; i++){
 			document.getElementById('allQuestions').innerHTML += "<p align='left' style='margin-left: 10px; display:inline'><a class='questionLink'  style='float:left; cursor:pointer; width:70%; overflow:hidden; text-overflow: ellipsis; white-space: nowrap;' onclick='viewQuestion("+ mapSelectionQuestions[i][0] +")' title='" + mapSelectionQuestions[i][1] + "'>" + (i + 1) + ". " + mapSelectionQuestions[i][1] + "</a><input class='buttonChoice' type='submit' style='float: right; margin-right: 10px; margin-top: 7px' onclick='showChooseClass(" + mapSelectionQuestions[i][0] +")' value='Launch'></form><form style='align:right; display:inline' action='/deleteQuestion' method='POST'><input type='hidden' name='questionType' value='map'><input type='hidden' name='questionID' value='" + mapSelectionQuestions[i][0] + "'><input class='buttonChoice' type='submit' style='float: right; margin-right: 10px; margin-top: 7px' value='Delete'></form><form style='align:right; display:inline' action='viewGlobalStatistics' method='POST'><input type='hidden' name='questionType' value='map'><input type='hidden' name='questionID' value='" + mapSelectionQuestions[i][0] + "'><input class='buttonChoice' type='submit' style='float: right; margin-right: 10px; margin-top: 7px' value='Statistics'></form></p>";
@@ -57,15 +51,16 @@
 				<span class="byline"><font color="red">{{error}}</font></span>
 			</div>
 			<div style="height:150px; width:92%; overflow-x:scroll ; overflow-y: hidden; margin: 0 auto; white-space: nowrap;">
-				<input  class="button-sort" type="submit" onclick="shortAnswer({{shortAnswerQuestions}})" name="shortAnswer" value="Short Answer"/>
-				<input  class="button-sort" type="submit" onclick="map({{mapSelectionQuestions}})" name="Map" value="Map"/>
-				<input  class="button-sort" type="submit" onclick="multipleChoice({{multipleChoiceQuestions}})" name="multipleChoice" value="Multiple Choice"/>
+				<input id="shortAnswerButton" class="button-sort" type="submit" questions="{{shortAnswerQuestions|length}}" onclick="shortAnswer({{shortAnswerQuestions}})" name="shortAnswer" value="Short Answer"/>
+				<input id="mapButton" class="button-sort" type="submit" questions="{{mapSelectionQuestions|length}}" onclick="map({{mapSelectionQuestions}})" name="Map" value="Map"/>
+				<input id="multipleChoiceButton" class="button-sort" type="submit" questions="{{multipleChoiceQuestions|length}}" onclick="multipleChoice({{multipleChoiceQuestions}})" name="multipleChoice" value="Multiple Choice"/>
 			</div>
 			<div id="name">
-				<!-- Fill With JavaScript -->
+				<div class='title'>
+					<h2></h2>
+				</div>
 			</div>
-			<div id="allQuestions" style="width:92%"> 
-			<!-- Fill With JavaScript -->
+			<div id="allQuestions">
 			</div>
 		</div>
 	</div>

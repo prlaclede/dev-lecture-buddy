@@ -46,7 +46,9 @@ $(function (email, $, undefined) {
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    console.log(response);
+                    if (response['message'] == 'success') {
+                        $('#emailInviteWrapper').append("<span class='byline'><font color='green'>All emails have sent successfully</font></span>")
+                    }
                 },
                 error: function(error) {
                     return("error" + JSON.stringify(error));
